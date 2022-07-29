@@ -1,0 +1,20 @@
+on: [push, pull_request] # define quando a action será disparada, neste caso em todo push ou pull_request
+
+jobs: #ações executadas conforma a regra acima
+  eslint: #nome da ação
+    runs-on: ubuntu-latest # qual versão da máquina virtual hospedada no GitHub será utilizada na action
+    steps: # comandos, ações, configurações a serem executadas
+        - name: Verifica o repositório do Git # nome da ação
+          uses: actions/checkout@v2 # baixa o repositório e torna possível executar ações no código, como testes
+
+        - name: Instala o node com a versão 
+          uses: actions/setup-node@v1 # configurar node
+          with:
+            node-version: 14 #versão do node
+
+
+        - name: instalando as dependências
+          run: npm install # executa comandos cli
+
+        - name: executando o lint para verificar se a erros
+          run: npx eslint . # execução do lint no código
